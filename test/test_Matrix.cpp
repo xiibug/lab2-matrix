@@ -1,5 +1,9 @@
 
 #include <gtest.h>
+#include "MyVector.h"
+TEST(Vector, can_use_constructor) {
+	ASSERT_NO_THROW(new Vector<double>(3, 0.0));
+}
 //
 //TEST(TSet, can_get_max_power_set)
 //{

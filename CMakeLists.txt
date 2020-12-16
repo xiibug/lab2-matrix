@@ -4,17 +4,17 @@ set(PROJECT_NAME Matrix) #Создаем обычную локальную пе�
 project(${PROJECT_NAME}) # Название проекта
 
 set(Matrix Main) #Переменная с именем приложения
-set(Matrixlib Matrixlib) #Переменная с именем библиотеки
+set(MatrixLib MatrixLib) #Переменная с именем библиотеки
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE) #Создается переменная CMAKE_CONFIGURATION_TYPES со значением "Debug;Release" и меткой/разделом Configs, переменная сохраниется в специальном файле доступном из всех файлов,
 if(NOT CMAKE_BUILD_TYPE) # проверка имеющихся у компилятора вариантов сборки
   set(CMAKE_BUILD_TYPE Release) #Если нет то устанавливаем Release
 endif()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Matrixlib) #Добавляем директорию "${CMAKE_CURRENT_SOURCE_DIR}/vectorlib" в дополняемые каталоги включаемых файлов
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/MatrixLib) #Добавляем директорию "${CMAKE_CURRENT_SOURCE_DIR}/vectorlib" в дополняемые каталоги включаемых файлов
 #${CMAKE_CURRENT_SOURCE_DIR} - стандартная переменная с адресом рабочей директории
 
 add_subdirectory(Matrix)
-add_subdirectory(Matrixlib)
+add_subdirectory(MatrixLib)
 add_subdirectory(gtest)
 add_subdirectory(test)
