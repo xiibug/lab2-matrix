@@ -9,6 +9,6 @@ script:
   - cmake ../lab2-matrix
   - make -j
   - ls
-  - ./test/Matrix_test
+  - ./test/Matrix_Test
 notifications:
   email: false
