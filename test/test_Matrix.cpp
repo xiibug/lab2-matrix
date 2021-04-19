@@ -151,7 +151,6 @@ TEST(TMatrix, can_multiply_matrixes_with_equal_size)
     A[0][0] = 10;
     B[0][0] = 2;
     C[0][0] = 20;
-    cout << A << endl << B << endl << A * B << endl << C << endl;
     EXPECT_EQ(A * B, C);
 }
 
