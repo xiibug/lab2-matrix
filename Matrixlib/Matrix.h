@@ -55,11 +55,6 @@ inline TMatrix<T>::TMatrix(int _size, const T& value) : Vector<Vector<T>>(_size,
 template<class T>
 inline TMatrix<T>::TMatrix(const TMatrix<T>& A) : Vector<Vector<T>>(A)
 {
-	//length = A.length;
-	//x = new Vector<T>[length];
-	//for (int i = 0; i < length; i++) {
-	//	x[i] = A.x[i];
-	//}
 }
 
 template<class T>
