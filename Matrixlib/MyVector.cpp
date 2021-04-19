@@ -1,3 +1,3 @@
-#include <math.h>
-
-#include "MyVector.h"
+//#include <math.h>
+//
+//#include "MyVector.h"

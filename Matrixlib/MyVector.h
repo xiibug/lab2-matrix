@@ -13,19 +13,18 @@ protected:
   T* x;
 public:
   Vector<T>* vec;
-  Vector();
-  Vector(T _v);
-  Vector(int rowsCount, T* _v);
-  Vector(int rowsCount, T _v);
-  Vector(Vector<T>& _v);
-  ~Vector();
+  Vector(int rowsCount=0, T _v=NULL);
+  Vector(const Vector<T>& _v);
+  virtual ~Vector();
 
   Vector<T> operator +(Vector<T>& _v);
   Vector<T> operator -(Vector<T>& _v);
   Vector<T> operator *(Vector<T>& _v);
   Vector<T> operator /(Vector<T>& _v);
-  Vector<T>& operator =(Vector<T>& _v);
-  T& operator[] (const int index);
+  Vector<T>& operator =(const Vector<T>& _v);
+  bool operator==(const Vector<T>& _v) const;
+  bool operator!=(const Vector<T>& _v) const;
+  T& operator[] (const int index)const;
 
   Vector<T>& operator ++();
   Vector<T>& operator --();
@@ -43,7 +42,7 @@ public:
 template <class T1>
 ostream& operator<< (ostream& ostr, const Vector<T1> &A) {
   for (int i = 0; i < A.length; i++) {
-    ostr << A.x[i] << endl;
+    ostr << A.x[i]<<' ';
   }
   return ostr;
 }
@@ -58,31 +57,6 @@ istream& operator >> (istream& istr, Vector<T1> &A) {
 
 #define MIN(a,b)(a>b?b:a)
 #define MAX(a,b)(a>b?a:b)
-
-template <class T>
-Vector<T>::Vector()
-{
-  length = 0;
-  x = 0;
-}
-template <class T>
-Vector<T>::Vector(T _v)
-{
-  length = 1;
-  x = new T [length];
-  x[0] = _v;
-}
-template <class T>
-Vector<T>::Vector(int rowsCount, T* _v)
-{
-  length = rowsCount;
-
-  ///x = _v;
-
-  x = new T [length];
-  for (int i = 0; i < length; i++)
-    x[i] = _v[i];
-}
 template <class T>
 Vector<T>::Vector(int rowsCount, T _v)
 {
@@ -92,7 +66,7 @@ Vector<T>::Vector(int rowsCount, T _v)
     x[i] = _v;
 }
 template <class T>
-Vector<T>::Vector(Vector<T>& _v)
+Vector<T>::Vector(const Vector<T>& _v)
 {
   length = _v.length;
   x = new T [length];
@@ -103,9 +77,9 @@ template <class T>
 Vector<T>::~Vector()
 {
   length = 0;
-  if (x != 0)
-    delete [] x;
-  x = 0;
+  if (x != nullptr)
+    delete[] x;
+  x = nullptr;
 }
 template <class T>
 Vector<T> Vector<T>::operator +(Vector<T>& _v)
@@ -157,23 +131,36 @@ Vector<T> Vector<T>::operator /(Vector<T>& _v)
   return res;
 }
 template <class T>
-Vector<T>& Vector<T>::operator =(Vector<T>& _v)
+Vector<T>& Vector<T>::operator=(const Vector<T>& _v)
 {
   if (this == &_v)
     return *this;
-
   length = _v.length;
   x = new T [length];
   for (int i = 0; i < length; i++)
     x[i] = _v.x[i];
   return *this;
 }
+template<class T>
+bool Vector<T>::operator==(const Vector<T>& _v) const
+{
+    if (length != _v.length) return false;
+    for (int i = 0; i < length; i++) {
+        if (x[i] != _v.x[i])return false;
+    }
+    return true;
+}
+template<class T>
+inline bool Vector<T>::operator!=(const Vector<T>& _v) const
+{
+    return (!(*this == _v));
+}
 template <class T>
-T& Vector<T>::operator[] (const int index)
+T& Vector<T>::operator[] (const int index) const
 {
   if ((index >= 0) && (index < length))
     return x[index];
-  return x[0];
+  throw new exception();
 }
 
 template <class T>
@@ -218,3 +205,4 @@ int Vector<T>::Length()
 
 
 #endif
+
