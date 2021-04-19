@@ -14,7 +14,8 @@ endif()
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/MatrixLib) #Добавляем директорию "${CMAKE_CURRENT_SOURCE_DIR}/vectorlib" в дополняемые каталоги включаемых файлов
 #${CMAKE_CURRENT_SOURCE_DIR} - стандартная переменная с адресом рабочей директории
 
-add_subdirectory(Matrix)
+add_subdirectory(Matrix) #Добавляем директорию с под-CMakeList-ом, и выполняем под-CMakeList
 add_subdirectory(MatrixLib)
+
 add_subdirectory(gtest)
 add_subdirectory(test)
