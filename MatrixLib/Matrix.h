@@ -131,8 +131,8 @@ template<class T>
 inline Vector<T> TMatrix<T>::operator*(const Vector<T>& v)
 {
 	Vector<T> tmp(this->length, 0);
-	for (int i = 0; i < length; i++)
-		for (int j = i; j < length; j++)
+	for (int i = 0; i < this->length; i++)
+		for (int j = i; j < this->length; j++)
 			tmp[i] += this->x[i][j - i] * v[j];
 	return tmp;
 }
