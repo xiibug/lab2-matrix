@@ -38,7 +38,7 @@ public:
 };
 template<class T>
 inline int TMatrix<T>::Length() const {
-	return length;
+	return this->length;
 }
 template<class T>
 inline TMatrix<T>::TMatrix(int _size) : Vector<Vector<T> >(_size)
@@ -130,7 +130,7 @@ inline TMatrix<T> TMatrix<T>::operator*(const double& d)
 template<class T>
 inline Vector<T> TMatrix<T>::operator*(const Vector<T>& v)
 {
-	Vector<T> tmp(length, 0);
+	Vector<T> tmp(this->length, 0);
 	for (int i = 0; i < length; i++)
 		for (int j = i; j < length; j++)
 			tmp[i] += this->x[i][j - i] * v[j];
