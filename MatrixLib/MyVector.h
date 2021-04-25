@@ -77,9 +77,9 @@ template <class T>
 Vector<T>::~Vector()
 {
   length = 0;
-  if (x != nullptr)
+  if (x != 0)
     delete[] x;
-  x = nullptr;
+  x = 0;
 }
 template <class T>
 Vector<T> Vector<T>::operator +(Vector<T>& _v)

@@ -7,7 +7,7 @@
 using namespace std;
 
 template<class T>
-class TMatrix : public Vector<Vector<T>> 
+class TMatrix : public Vector<Vector<T> > 
 {
 public:
 	TMatrix(int _size = 0);
@@ -38,10 +38,10 @@ public:
 };
 template<class T>
 inline int TMatrix<T>::Length() const {
-	return x->Length();
+	return length;
 }
 template<class T>
-inline TMatrix<T>::TMatrix(int _size) : Vector<Vector<T>>(_size)
+inline TMatrix<T>::TMatrix(int _size) : Vector<Vector<T> >(_size)
 {
 	if (_size < 0)
 		throw new exception;
@@ -49,11 +49,11 @@ inline TMatrix<T>::TMatrix(int _size) : Vector<Vector<T>>(_size)
 		this->x[i] = Vector<T>(_size - i, 0);
 }
 template<class T>
-inline TMatrix<T>::TMatrix(int _size, const T& value) : Vector<Vector<T>>(_size, value)
+inline TMatrix<T>::TMatrix(int _size, const T& value) : Vector<Vector<T> >(_size, value)
 {
 }
 template<class T>
-inline TMatrix<T>::TMatrix(const TMatrix<T>& A) : Vector<Vector<T>>(A)
+inline TMatrix<T>::TMatrix(const TMatrix<T>& A) : Vector<Vector<T> >(A)
 {
 }
 
@@ -65,9 +65,9 @@ inline TMatrix<T>::~TMatrix()
 template<class T>
 inline  bool TMatrix<T>::operator==(const TMatrix& A) const
 {
-	 if (length != A.length) return false;
-	 for (int i = 0; i < length; i++) {
-		 if (x[i] != A.x[i])return false;
+	 if (this->length != A.length) return false;
+	 for (int i = 0; i < this->length; i++) {
+		 if (this->x[i] != A.x[i])return false;
 	 }
 	 return true;
 }
@@ -93,7 +93,7 @@ inline TMatrix<T>& TMatrix<T>::operator=(const TMatrix& A)
 template<class T>
 inline TMatrix<T> TMatrix<T>::operator+(const TMatrix& A)
 {
-	if (length != A.length) throw - 1; 
+	if (this->length != A.length) throw - 1; 
 	TMatrix<T> tmp(*this);
 	for (int i = 0; i < tmp.Length(); i++)
 		tmp[i] += A[i];
@@ -102,7 +102,7 @@ inline TMatrix<T> TMatrix<T>::operator+(const TMatrix& A)
 template<class T>
 inline TMatrix<T> TMatrix<T>::operator-(const TMatrix& A)
 {
-	if (length != A.length) throw - 1;
+	if (this->length != A.length) throw - 1;
 	TMatrix<T> tmp = *this;
 	for (int i = 0; i < tmp.Length(); i++)
 		tmp[i] -= A[i];
@@ -112,7 +112,7 @@ template<class T>
 inline TMatrix<T> TMatrix<T>::operator*(const TMatrix& A)
 {
 	TMatrix<T> tmp(*this);
-	if (length != A.Length())
+	if (this->length != A.Length())
 		throw new exception();
 	for (int i = 0; i < this->length; i++)
 		tmp.x[i] = tmp.x[i] * A.x[i];
@@ -122,8 +122,8 @@ template<class T>
 inline TMatrix<T> TMatrix<T>::operator*(const double& d)
 {
 	TMatrix<T> tmp(*this);
-	for (int i = 0; i < length; i++)
-		for (int j = 0; j < x[i].Length(); j++)
+	for (int i = 0; i < this->length; i++)
+		for (int j = 0; j < this->x[i].Length(); j++)
 			tmp[i] *= d;
 	return tmp;
 }
@@ -133,7 +133,7 @@ inline Vector<T> TMatrix<T>::operator*(const Vector<T>& v)
 	Vector<T> tmp(length, 0);
 	for (int i = 0; i < length; i++)
 		for (int j = i; j < length; j++)
-			tmp[i] += x[i][j - i] * v[j];
+			tmp[i] += this->x[i][j - i] * v[j];
 	return tmp;
 }
 #endif
