@@ -159,3 +159,18 @@ TEST(TMatrix, throws_when_multiply_matrices_with_different_sizes)
 
     ASSERT_ANY_THROW(A * B);
 }
+
+TEST(TMatrix, can_write_and_read_from_file) {
+    TMatrix<int> A(3, 1), B(4);
+    ofstream fout;
+    fout.open("file.txt");
+    fout << A;
+    fout.close();
+
+    ifstream fin;
+    fin.open("file.txt");
+    fin >> B;
+    fin.close();
+
+    EXPECT_EQ(A, B);
+}

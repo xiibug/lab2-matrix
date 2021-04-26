@@ -2,6 +2,7 @@
 #define _MY_VECTOR_
 
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -16,7 +17,7 @@ public:
   Vector(int rowsCount=0, T _v=NULL);
   Vector(const Vector<T>& _v);
   virtual ~Vector();
-
+  void Resize(int size);
   Vector<T> operator +(Vector<T>& _v);
   Vector<T> operator -(Vector<T>& _v);
   Vector<T> operator *(Vector<T>& _v);
@@ -30,33 +31,53 @@ public:
   Vector<T>& operator --();
   Vector<T>& operator +=(Vector<T>& _v);
   Vector<T>& operator -=(Vector<T>& _v);
+    
+    friend ostream& operator<< (ostream& ostr, const Vector &A) {
+      for (int i = 0; i < A.length; i++) {
+        ostr << A.x[i]<<' ';
+      }
+      return ostr;
+    }
 
-  template <class T1>
-  friend ostream& operator<< (ostream& ostr, const Vector<T1> &A);
-  template <class T1>
-  friend istream& operator >> (istream& istr, Vector<T1> &A);
+    friend istream& operator >> (istream& istr, Vector &A) {
+      for (int i = 0; i < A.length; i++) {
+        istr >> A.x[i];
+      }
+      return istr;
+    }
 
-  int Length();
+  friend ifstream& operator>>(ifstream& in, Vector& mt)
+  {
+      int size;
+      in >> size;
+      mt.Resize(size);
+      for (int i = 0; i < mt.length; i++)
+          in >> mt.x[i];
+      return in;
+  }
+  friend ofstream& operator<<(ofstream& out, const Vector& mt)
+  {
+      out << mt.Length() << endl;
+      for (int i = 0; i < mt.length; i++)
+          out << mt.x[i]<<' ';
+      return out;
+  }
+
+  int Length() const;
 };
 
-template <class T1>
-ostream& operator<< (ostream& ostr, const Vector<T1> &A) {
-  for (int i = 0; i < A.length; i++) {
-    ostr << A.x[i]<<' ';
-  }
-  return ostr;
-}
-
-template <class T1>
-istream& operator >> (istream& istr, Vector<T1> &A) {
-  for (int i = 0; i < A.length; i++) {
-    istr >> A.x[i];
-  }
-  return istr;
-}
 
 #define MIN(a,b)(a>b?b:a)
 #define MAX(a,b)(a>b?a:b)
+template <class T>
+void Vector<T>::Resize(int size) {
+    Vector<T> tmp(size);
+    for (int i = 0; i < MIN(length, size); i++) {
+        tmp[i] = x[i];
+    }
+    *this = tmp;
+}
+
 template <class T>
 Vector<T>::Vector(int rowsCount, T _v)
 {
@@ -198,7 +219,7 @@ Vector<T>& Vector<T>::operator -=(Vector<T>& _v)
   return *this;
 }
 template <class T>
-int Vector<T>::Length()
+int Vector<T>::Length() const
 {
   return length;
 }

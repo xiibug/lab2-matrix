@@ -37,7 +37,22 @@ public:
 		}
 		return out;
 	}
-
+	friend ifstream& operator>>(ifstream& in, TMatrix& mt)
+	{
+		int size;
+		in >> size;
+		if (size != mt.Length()) mt.Resize(size);
+		for (int i = 0; i < size; i++)
+			in >> mt.x[i];
+		return in;
+	}
+	friend ofstream& operator<<(ofstream& out, const TMatrix& mt)
+	{
+		out << mt.Length() << endl;
+		for (int i = 0; i < mt.length; i++)
+			out << mt.x[i] << endl;
+		return out;
+	}
 };
 template<class T>
 inline int TMatrix<T>::Length() const {
