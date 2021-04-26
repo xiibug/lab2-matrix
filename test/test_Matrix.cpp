@@ -16,7 +16,6 @@ TEST(TMatrix, cant_create_matrix_with_negative_length)
 TEST(TMatrix, can_copy_matrix)
 {
     TMatrix<int> A(3);
-
     ASSERT_NO_THROW(TMatrix<int>B(A));
 }
 

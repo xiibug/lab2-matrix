@@ -30,8 +30,11 @@ public:
 	}
 	friend ostream& operator<<(ostream& out, const TMatrix& mt)
 	{
-		for (int i = 0; i < mt.length; i++)
+		for (int i = 0; i < mt.length; i++) {
+			for (int j = 0; j < i * 2; j++)
+				out << ' ';
 			out << mt.x[i] << endl;
+		}
 		return out;
 	}
 
@@ -51,6 +54,10 @@ inline TMatrix<T>::TMatrix(int _size) : Vector<Vector<T> >(_size)
 template<class T>
 inline TMatrix<T>::TMatrix(int _size, const T& value) : Vector<Vector<T> >(_size, value)
 {
+	if (_size < 0)
+		throw new exception;
+	for (int i = 0; i < _size; i++)
+		this->x[i] = Vector<T>(_size - i, value);
 }
 template<class T>
 inline TMatrix<T>::TMatrix(const TMatrix<T>& A) : Vector<Vector<T> >(A)
