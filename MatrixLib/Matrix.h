@@ -22,6 +22,7 @@ public:
 	TMatrix operator*(const TMatrix& A);
 	TMatrix operator*(const double& d);
 	Vector<T> operator*(const Vector<T>& v);
+	T& operator() (const int ind1, const int ind2) const;
 	friend istream& operator>>(istream& in, TMatrix& mt)
 	{
 		for (int i = 0; i < mt.length; i++)
@@ -157,5 +158,12 @@ inline Vector<T> TMatrix<T>::operator*(const Vector<T>& v)
 		for (int j = i; j < this->length; j++)
 			tmp[i] += this->x[i][j - i] * v[j];
 	return tmp;
+}
+template<class T>
+inline T& TMatrix<T>::operator()(const int ind1, const int ind2) const
+{
+	if (ind1 >= 0 && ind2 - ind1 >= 0 && ind1 < this->length && ind2 < this->length - ind1)
+		return this->x[ind1][ind2-ind1];
+	else throw - 1;
 }
 #endif

@@ -156,7 +156,6 @@ TEST(TMatrix, can_multiply_matrixes_with_equal_size)
 TEST(TMatrix, throws_when_multiply_matrices_with_different_sizes)
 {
     TMatrix<int> A(3), B(4);
-
     ASSERT_ANY_THROW(A * B);
 }
 
@@ -173,4 +172,16 @@ TEST(TMatrix, can_write_and_read_from_file) {
     fin.close();
 
     EXPECT_EQ(A, B);
+}
+
+TEST(TMatrix, can_use_indexation_operator) {
+    TMatrix<int> A(3), B(3), C(3);
+    A(1, 1) = 1;
+    C = A + B;
+    EXPECT_EQ(A, C);
+}
+
+TEST(TMatrix, throws_when_indexation_invalid) {
+    TMatrix<int> A(3);
+    ASSERT_ANY_THROW(A(3, 1));
 }
